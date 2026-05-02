@@ -1,9 +1,5 @@
 # Agentic AI Systems Should Be Designed as Marginal Token Allocators
 
-> A position paper arguing that agentic AI systems should be designed and evaluated as **marginal token allocation economies** rather than as text generators priced by the unit.
-
-**Author:** Siqi Zhu (University of Illinois Urbana-Champaign) — `siqizhu4@illinois.edu`
-
 📄 [**Read the paper (PDF)**](paper.pdf) &nbsp;·&nbsp; 🌐 [**Project page**](https://zhusq20.github.io/Agent_Token_Economics/)
 
 ---
