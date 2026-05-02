@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Systems Should Be Designed as Marginal Token Allocators</title>
+<meta name="description" content="A position paper arguing that agentic AI systems should be designed and evaluated as marginal token allocation economies. By Siqi Zhu, University of Illinois Urbana-Champaign.">
+<meta name="author" content="Siqi Zhu">
+
+<!-- MathJax for equation rendering -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #555555;
+    --accent: #8B0000;
+    --accent-soft: #f5e8e8;
+    --border: #e5e5e5;
+    --code-bg: #f7f7f7;
+    --max-width: 820px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Charter", "Georgia", "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* Header */
+  header.title-block {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+
+  .venue {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 30px;
+    line-height: 1.3;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .authors {
+    font-size: 17px;
+    color: var(--fg);
+    margin: 0 0 6px;
+  }
+
+  .authors a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .authors a:hover { border-bottom-color: var(--accent); }
+
+  .affiliation {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* Action bar */
+  .actions {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fafafa;
+    color: var(--fg);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .action-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  /* Sections */
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 48px 0 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 28px 0 10px;
+  }
+
+  p { margin: 0 0 16px; }
+
+  a { color: var(--accent); }
+
+  /* Abstract */
+  .abstract {
+    background: #fafafa;
+    border-left: 3px solid var(--accent);
+    padding: 18px 22px;
+    margin: 0 0 12px;
+    font-size: 16px;
+  }
+
+  .abstract h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  /* Equation block */
+  .equation-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+
+  .equation-block .label {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  /* Layers grid */
+  .layers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin: 18px 0 24px;
+  }
+
+  .layer-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    background: #fafafa;
+    transition: border-color 0.15s ease;
+  }
+
+  .layer-card:hover { border-color: var(--accent); }
+
+  .layer-card .num {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .layer-card h4 {
+    margin: 4px 0 8px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .layer-card p {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 15px;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    background: #fafafa;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  tbody tr:hover { background: #fbf9f9; }
+
+  /* Citation block */
+  .citation {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: "SF Mono", "Menlo", "Consolas", monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+    color: #333;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  footer a { color: var(--muted); }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 40px 18px 60px; }
+    h1 { font-size: 24px; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Title block -->
+  <header class="title-block">
+    <div class="venue">Position Paper · arXiv preprint</div>
+    <h1>Agentic AI Systems Should Be Designed as Marginal Token Allocators</h1>
+    <p class="authors"><a href="mailto:siqizhu4@illinois.edu">Siqi Zhu</a></p>
+    <p class="affiliation">University of Illinois Urbana-Champaign</p>
+
+    <div class="actions">
+      <a class="action-btn" href="paper.pdf">📄 Paper (PDF)</a>
+      <a class="action-btn" href="#bibtex">📚 BibTeX</a>
+      <a class="action-btn" href="mailto:siqizhu4@illinois.edu">✉ Contact</a>
+    </div>
+  </header>
+
+  <!-- Abstract -->
+  <section>
+    <div class="abstract">
+      <h3>Abstract</h3>
+      <p>This position paper argues that agentic AI systems should be designed and evaluated as <em>marginal token allocation economies</em> rather than as text generators priced by the unit. Following a single request through four economic layers — a router, an agent, a serving stack, and a training pipeline — we show that all four are solving the <em>same</em> first-order condition: marginal benefit equals marginal cost plus latency cost plus risk cost, with different index sets and different prices.</p>
+      <p style="margin-bottom:0;">Adopting marginal token allocation as the shared accounting object explains why systems that locally minimize tokens globally misallocate them, predicts a small set of recurring failure modes, and points to a concrete research agenda in token-aware evaluation, autonomy pricing, congestion-priced serving, and risk-adjusted RL budgeting.</p>
+    </div>
+  </section>
+
+  <!-- TL;DR -->
+  <section>
+    <h2>TL;DR</h2>
+    <p>Routers, agents, serving stacks, and trainers look like four different engineering problems. They are not. They are <strong>four readings of one allocation problem</strong>, evaluated at four shadow prices that today no single layer can see. The prescription is not centralization; it is <strong>shared price discovery</strong>.</p>
+  </section>
+
+  <!-- Core equation -->
+  <section>
+    <h2>The Core Equation</h2>
+    <p>Let an LLM system face a stream of tasks. For each task it has a finite set of <em>token uses</em>, indexed by $i$ — cheap model, frontier model, retrieval, planning, tool call, verifier, prefill, decode, KV transfer, RL rollout, gradient update. Each use $i$ has marginal quality $\Delta Q_i$, marginal cost $\Delta C_i$, marginal latency $\Delta L_i$, and marginal risk $\Delta R_i$. The system should spend the next token on:</p>
+
+    <div class="equation-block">
+      <div class="label">Marginal Token Allocation</div>
+      $$ i^{*} \;=\; \arg\max_{i}\;\Big[\, V\,\Delta Q_i \;-\; \Delta C_i \;-\; \lambda\,\Delta L_i \;-\; \rho\,\Delta R_i\,\Big] $$
+    </div>
+
+    <p>where $V$ is task value (set by the user), $\lambda$ is the shadow price of latency (set by the SLA), and $\rho$ is the shadow price of risk (set by the safety team). At an interior optimum, the Marshallian equimarginal condition holds — the marginal benefit of a token equals its full marginal cost, once latency and risk are properly priced.</p>
+
+    <p>The four prices in this equation are not chosen by fiat; they are the <strong>dual variables (Lagrange multipliers)</strong> of the constrained primal of token allocation, and by the first welfare theorem, if all four layers maximize their own component taking the same prices as given, the allocation is Pareto efficient.</p>
+  </section>
+
+  <!-- Four layers -->
+  <section>
+    <h2>One Request, Four Layers</h2>
+    <p>Consider a developer who types <em>"the CI test on auth/login is failing — fix it"</em> into a coding agent. Before a single line of code is touched, the system has already made four economic decisions, each priced differently:</p>
+
+    <div class="layers-grid">
+      <div class="layer-card">
+        <div class="num">LAYER 1 · DEMAND</div>
+        <h4>Routing as Screening</h4>
+        <p>Choose model tier under hidden user type. Solves a Mirrlees–Spence screening problem; observes $V$ and $\Delta C_i$.</p>
+      </div>
+      <div class="layer-card">
+        <div class="num">LAYER 2 · ACTION</div>
+        <h4>Agent as Principal–Agent</h4>
+        <p>Decide autonomy and split tokens among read, plan, edit, verify. A team-production problem; observes $\rho$ and $V$.</p>
+      </div>
+      <div class="layer-card">
+        <div class="num">LAYER 3 · SUPPLY</div>
+        <h4>Serving as Production</h4>
+        <p>Produce tokens via prefill, decode, KV cache. A multi-stage production problem with congestion externalities; observes $\lambda$ and $\Delta C_i$.</p>
+      </div>
+      <div class="layer-card">
+        <div class="num">LAYER 4 · CAPITAL</div>
+        <h4>Caches &amp; RL as Investment</h4>
+        <p>Decide what to cache and what to learn from. A neoclassical capital-accumulation Bellman problem; observes $\Delta C_i$ and $\rho$.</p>
+      </div>
+    </div>
+
+    <p>Each layer charges a different price for what looks, on the API invoice, like the same token. The router prices in dollars per million; the agent in expected risk of an irreversible action; the serving stack in queueing delay; the trainer in marginal capability gain over a discount horizon. <strong>No single layer sees all four prices.</strong> This is the structural reason locally rational decisions compose into globally irrational allocations.</p>
+  </section>
+
+  <!-- Failure modes -->
+  <section>
+    <h2>Predicted Failure Modes</h2>
+    <p>The unified view sharpens what counts as a failure: a system fails when its allocation deviates predictably from the master equation. Seven recurring failure modes across heterogeneous LLM systems are corner cases of the same equation when one of the four prices is held at zero or at infinity by a layer that does not see it.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Failure mode</th>
+          <th>Allocation violated</th>
+          <th>Where observed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Over-routing</td><td>Marginal $V\Delta Q_m < \Delta C_m$ for chosen $m$</td><td>Frontier-default deployments</td></tr>
+        <tr><td>Under-routing</td><td>$V\Delta Q_m \gg \Delta C_m$ ignored</td><td>Cost-minimizing routers</td></tr>
+        <tr><td>Over-delegation</td><td>$\partial R/\partial a$ exceeds $V\,\partial p/\partial a$</td><td>Auto-execute coding/email agents</td></tr>
+        <tr><td>Under-verification</td><td>$V\Delta Q_v - \rho\Delta R_v$ positive but $T_v=0$</td><td>Skip-the-tests pipelines</td></tr>
+        <tr><td>Serving congestion</td><td>$\lambda \Delta L_i$ un-priced in $\Delta C_i$</td><td>Flat-rate inference APIs</td></tr>
+        <tr><td>Stale RL rollouts</td><td>$\delta A_t$ exceeds $g(\cdot)$ at the margin</td><td>Long async PPO loops</td></tr>
+        <tr><td>Cache misuse</td><td>Reused KV with mismatched $V(x)$</td><td>Naive prefix-cache reuse</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Design implications -->
+  <section>
+    <h2>Design Implications</h2>
+    <p>Five principles follow directly from the master equation:</p>
+
+    <h3>1. Token-aware evaluation</h3>
+    <p>Report the four prices ($V$, $\Delta C_i$, $\lambda$, $\rho$) and the realized allocation per request, not only aggregate accuracy and dollar cost.</p>
+
+    <h3>2. Risk-adjusted routing</h3>
+    <p>Publish a regret bound against the routing optimum or an incentive-compatible menu, not a cost–quality scatter plot.</p>
+
+    <h3>3. Autonomy pricing</h3>
+    <p>Make the action class explicit and price irreversible actions higher than reversible ones — read $\to$ free, draft $\to$ free, commit $\to$ confirm, deploy/transfer $\to$ multi-party.</p>
+
+    <h3>4. Congestion-priced serving</h3>
+    <p>Expose shadow prices for prefill, decode, and KV resources, so upstream allocators can read them in real time and respond to binding constraints rather than to a flat per-token list price.</p>
+
+    <h3>5. RL token budgeting</h3>
+    <p>Equalize marginal capability gain across rollouts, verifiers, and updates; depreciate stale rollouts at the rate $\delta$ implied by drift, not at an arbitrary epoch boundary.</p>
+  </section>
+
+  <!-- BibTeX -->
+  <section id="bibtex">
+    <h2>Citation</h2>
+    <p>If you find this work useful, please cite:</p>
+    <div class="citation">@misc{zhu2026marginaltoken,
+  title  = {Agentic AI Systems Should Be Designed as Marginal Token Allocators},
+  author = {Siqi Zhu},
+  year   = {2026},
+  note   = {Position paper, preprint}
+}</div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <h2>Contact</h2>
+    <p><strong>Siqi Zhu</strong><br>
+    University of Illinois Urbana-Champaign<br>
+    Email: <a href="mailto:siqizhu4@illinois.edu">siqizhu4@illinois.edu</a></p>
+    <p>Comments, criticisms, and collaboration ideas are welcome — please open a GitHub issue or send an email.</p>
+  </section>
+
+  <footer>
+    <p>© 2026 Siqi Zhu · Hosted on <a href="https://pages.github.com/">GitHub Pages</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
