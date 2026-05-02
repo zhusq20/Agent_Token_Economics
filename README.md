@@ -4,7 +4,7 @@
 
 **Author:** Siqi Zhu (University of Illinois Urbana-Champaign) — `siqizhu4@illinois.edu`
 
-📄 [**Read the paper (PDF)**](paper.pdf) &nbsp;·&nbsp; 🌐 [**Project page**](https://zhusq20.github.io/Agentic-AI-Systems-Should-Be-Designed-as-Marginal-Token-Allocators/)
+📄 [**Read the paper (PDF)**](paper.pdf) &nbsp;·&nbsp; 🌐 [**Project page**](https://zhusq20.github.io/Agent_Token_Economics/)
 
 ---
 
